@@ -16,7 +16,8 @@ import {
   LogOut,
   Book,
   Home,
-  MessageCircle
+  MessageCircle,
+  Wallet
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -87,6 +88,7 @@ const Navigation = () => {
     { path: "/", label: "หน้าหลัก", icon: Home },
     { path: "/all-prayers", label: "คำอธิษฐานทั้งหมด", icon: Heart },
     { path: "/bible-reading", label: "พระคัมภีร์", icon: Book },
+    { path: "/accounting", label: "บัญชี", icon: Wallet },
     { path: "/groups", label: "กลุ่มดูแล", icon: Users },
     { path: "/calendar", label: "ปฏิทิน", icon: Calendar },
     { path: "/profile", label: "โปรไฟล์", icon: User },
@@ -96,6 +98,7 @@ const Navigation = () => {
     { path: "/", label: "หน้าหลัก", icon: Home },
     { path: "/all-prayers", label: "คำอธิษฐาน", icon: Heart },
     { path: "/bible-reading", label: "พระคัมภีร์", icon: Book },
+    { path: "/accounting", label: "บัญชี", icon: Wallet },
     { path: "/groups", label: "กลุ่ม", icon: Users },
   ];
 

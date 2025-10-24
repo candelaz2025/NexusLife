@@ -14,6 +14,342 @@ export type Database = {
   }
   public: {
     Tables: {
+      accounting_accounts: {
+        Row: {
+          category: "asset" | "liability" | "equity" | "revenue" | "expense" | "other"
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          is_archived: boolean
+          name: string
+          normal_balance: "debit" | "credit"
+          owner_id: string
+          updated_at: string
+        }
+        Insert: {
+          category: "asset" | "liability" | "equity" | "revenue" | "expense" | "other"
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_archived?: boolean
+          name: string
+          normal_balance: "debit" | "credit"
+          owner_id: string
+          updated_at?: string
+        }
+        Update: {
+          category?: "asset" | "liability" | "equity" | "revenue" | "expense" | "other"
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_archived?: boolean
+          name?: string
+          normal_balance?: "debit" | "credit"
+          owner_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_accounts_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_contacts: {
+        Row: {
+          contact_type: "customer" | "vendor" | "partner" | "other"
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          owner_id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          contact_type?: "customer" | "vendor" | "partner" | "other"
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          owner_id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          contact_type?: "customer" | "vendor" | "partner" | "other"
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          owner_id?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_contacts_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_invoice_items: {
+        Row: {
+          account_id: string | null
+          created_at: string
+          description: string
+          id: string
+          invoice_id: string
+          quantity: number
+          unit_price: number
+        }
+        Insert: {
+          account_id?: string | null
+          created_at?: string
+          description: string
+          id?: string
+          invoice_id: string
+          quantity?: number
+          unit_price?: number
+        }
+        Update: {
+          account_id?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          invoice_id?: string
+          quantity?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_invoice_items_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounting_invoice_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_invoices: {
+        Row: {
+          contact_id: string | null
+          created_at: string
+          currency: string
+          due_date: string | null
+          id: string
+          invoice_number: string
+          issue_date: string
+          notes: string | null
+          owner_id: string
+          status: "draft" | "sent" | "paid" | "overdue" | "void" | "partial"
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          contact_id?: string | null
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          id?: string
+          invoice_number: string
+          issue_date: string
+          notes?: string | null
+          owner_id: string
+          status?: "draft" | "sent" | "paid" | "overdue" | "void" | "partial"
+          total?: number
+          updated_at?: string
+        }
+        Update: {
+          contact_id?: string | null
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          id?: string
+          invoice_number?: string
+          issue_date?: string
+          notes?: string | null
+          owner_id?: string
+          status?: "draft" | "sent" | "paid" | "overdue" | "void" | "partial"
+          total?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_invoices_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounting_invoices_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_journal_entries: {
+        Row: {
+          created_at: string
+          entry_date: string
+          id: string
+          memo: string | null
+          owner_id: string
+          reference: string | null
+          status: "draft" | "posted" | "void"
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          entry_date: string
+          id?: string
+          memo?: string | null
+          owner_id: string
+          reference?: string | null
+          status?: "draft" | "posted" | "void"
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          entry_date?: string
+          id?: string
+          memo?: string | null
+          owner_id?: string
+          reference?: string | null
+          status?: "draft" | "posted" | "void"
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_journal_entries_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_journal_lines: {
+        Row: {
+          account_id: string
+          created_at: string
+          credit: number
+          debit: number
+          description: string | null
+          id: string
+          journal_entry_id: string
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          credit?: number
+          debit?: number
+          description?: string | null
+          id?: string
+          journal_entry_id: string
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          credit?: number
+          debit?: number
+          description?: string | null
+          id?: string
+          journal_entry_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_journal_lines_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounting_journal_lines_journal_entry_id_fkey"
+            columns: ["journal_entry_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_journal_entries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          invoice_id: string | null
+          method: string | null
+          notes: string | null
+          owner_id: string
+          payment_date: string
+          reference: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          invoice_id?: string | null
+          method?: string | null
+          notes?: string | null
+          owner_id: string
+          payment_date?: string
+          reference?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          invoice_id?: string | null
+          method?: string | null
+          notes?: string | null
+          owner_id?: string
+          payment_date?: string
+          reference?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_payments_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounting_payments_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bible_verses: {
         Row: {
           book: string
@@ -379,8 +715,10 @@ export type Database = {
           display_name: string | null
           first_name: string | null
           id: string
+          line_id: string | null
           last_name: string | null
           location: string | null
+          member_level: string | null
           phone: string | null
           updated_at: string
         }
@@ -391,8 +729,10 @@ export type Database = {
           display_name?: string | null
           first_name?: string | null
           id: string
+          line_id?: string | null
           last_name?: string | null
           location?: string | null
+          member_level?: string | null
           phone?: string | null
           updated_at?: string
         }
@@ -403,8 +743,10 @@ export type Database = {
           display_name?: string | null
           first_name?: string | null
           id?: string
+          line_id?: string | null
           last_name?: string | null
           location?: string | null
+          member_level?: string | null
           phone?: string | null
           updated_at?: string
         }
