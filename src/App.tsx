@@ -19,6 +19,9 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import BibleReadingDashboard from "./pages/BibleReadingDashboard";
 import AllPrayers from "./components/AllPrayers";
 import BibleVerseManager from "./components/BibleVerseManager";
+import AccountingDashboard from "./pages/AccountingDashboard";
+import AccountingTransactions from "./pages/AccountingTransactions";
+import AccountingInvoices from "./pages/AccountingInvoices";
 
 import Debug from "./debug";
 
@@ -45,7 +48,10 @@ const App = () => (
               <Route path="/bible-reading" element={<BibleReadingDashboard />} />
               <Route path="/bible-manager" element={<BibleVerseManager />} />
               <Route path="/all-prayers" element={<AllPrayers />} />
-      
+              <Route path="/accounting" element={<AccountingDashboard />} />
+              <Route path="/accounting/transactions" element={<AccountingTransactions />} />
+              <Route path="/accounting/invoices" element={<AccountingInvoices />} />
+
               <Route path="/auth" element={<Auth />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
